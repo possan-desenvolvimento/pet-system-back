@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/cursosql
+      SPRING_DATASOURCE_USERNAME: leo
+      SPRING_DATASOURCE_PASSWORD: 1234
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_WEB_CORS_ENABLED: true
+      SPRING_WEB_CORS_ALLOW_CREDENTIALS: true
+      SPRING_WEB_CORS_ALLOWED_ORIGINS: "http://localhost:8000,http://127.0.0.1:5500"
+      SPRING_WEB_CORS_ALLOWED_METHODS: "GET,POST,PUT,DELETE,OPTIONS"
+      SPRING_WEB_CORS_ALLOWED_HEADERS: "*"
+      SPRING_WEB_CORS_MAX_AGE: 3600
+    depends_on:
+      - db
+    networks:
+      - dvjpet-network
+
+
+  db:
+    image: postgres:15-alpine
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: cursosql
+      POSTGRES_USER: leo
+      POSTGRES_PASSWORD: 1234
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - dvjpet-network
+
+networks:
+  dvjpet-network:
+    driver: bridge
+
+volumes:
+  db_data:
