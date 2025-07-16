@@ -7,6 +7,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
+      - "5005:5005" # Adiciona a porta de debug
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/cursosql
       SPRING_DATASOURCE_USERNAME: leo
@@ -18,11 +19,12 @@ services:
       SPRING_WEB_CORS_ALLOWED_METHODS: "GET,POST,PUT,DELETE,OPTIONS"
       SPRING_WEB_CORS_ALLOWED_HEADERS: "*"
       SPRING_WEB_CORS_MAX_AGE: 3600
+      JAVA_TOOL_OPTIONS: > # adiciona o agente de debug
+        -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
     depends_on:
       - db
     networks:
       - dvjpet-network
-
 
   db:
     image: postgres:15-alpine
