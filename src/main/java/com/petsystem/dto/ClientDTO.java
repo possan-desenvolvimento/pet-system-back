@@ -1,26 +1,15 @@
-package com.petsystem.model;
+package com.petsystem.dto;
 
-import jakarta.persistence.*;
-
-import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-public class Client {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ClientDTO {
     private Long id;
-
     private String nome;
     private String email;
     private String telefone;
     private String endereco;
+    private List<String> pets;
 
-    @OneToMany(mappedBy = "dono", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Pet> pets = new ArrayList<>();
-
-    // Getters e setters
     public Long getId() {
         return id;
     }
@@ -61,11 +50,11 @@ public class Client {
         this.endereco = endereco;
     }
 
-    public List<Pet> getPets() {
+    public List<String> getPets() {
         return pets;
     }
 
-    public void setPets(List<Pet> pets) {
+    public void setPets(List<String> pets) {
         this.pets = pets;
     }
 }
