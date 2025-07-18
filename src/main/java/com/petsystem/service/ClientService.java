@@ -58,4 +58,56 @@ public class ClientService {
             return dto;
         }).collect(Collectors.toList());
     }
+
+    public ClientDTO findById(Long id) {
+        Client client = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Cliente não encontrado com ID: " + id));
+
+        ClientDTO dto = new ClientDTO();
+        dto.setId(client.getId());
+        dto.setNome(client.getNome());
+        dto.setEmail(client.getEmail());
+        dto.setTelefone(client.getTelefone());
+        dto.setEndereco(client.getEndereco());
+
+        List<String> nomesPets = client.getPets().stream()
+                .map(Pet::getNome)
+                .collect(Collectors.toList());
+
+        dto.setPets(nomesPets);
+        return dto;
+    }
+
+    public ClientDTO update(Long id, ClientDTO dto) {
+        Client client = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Cliente não encontrado com ID: " + id));
+
+        client.setNome(dto.getNome());
+        client.setEmail(dto.getEmail());
+        client.setTelefone(dto.getTelefone());
+        client.setEndereco(dto.getEndereco());
+
+        // Remove pets antigos
+        client.getPets().clear();
+
+        // Adiciona pets novos
+        for (String nomePet : dto.getPets()) {
+            Pet pet = new Pet();
+            pet.setNome(nomePet);
+            pet.setDono(client);
+            client.getPets().add(pet);
+        }
+
+        Client updated = repository.save(client);
+        dto.setId(updated.getId());
+        return dto;
+    }
+
+    public void delete(Long id) {
+        if (!repository.existsById(id)) {
+            throw new RuntimeException("Cliente não encontrado com ID: " + id);
+        }
+        repository.deleteById(id);
+    }
+
 }

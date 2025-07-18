@@ -24,4 +24,20 @@ public class ClientController {
     public List<ClientDTO> getAll() {
         return clientService.findAll();
     }
+
+    @GetMapping("/{id}")
+    public ClientDTO getById(@PathVariable Long id) {
+        return clientService.findById(id);
+    }
+
+    @PutMapping("/{id}")
+    public ClientDTO update(@PathVariable Long id, @RequestBody ClientDTO dto) {
+        return clientService.update(id, dto);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        clientService.delete(id);
+    }
+
 }
