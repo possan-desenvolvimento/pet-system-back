@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -33,6 +34,21 @@ public class AuthController {
         }
     }
 
+//    @PostMapping("/login")
+//    public ResponseEntity<?> loginUser(@RequestBody LoginRequestDto loginDTO) {
+//        Optional<User> userOptional = userService.findByUserName(loginDTO.getUsername());
+//
+//        if (userOptional.isPresent()) {
+//            User user = userOptional.get();
+//
+//            if (userService.checkPassword(loginDTO.getPassword(), user.getPassword())) {
+//                return new ResponseEntity<>("Login successful! Welcome, " + user.getUsername(), HttpStatus.OK);
+//            }
+//        }
+//
+//        return new ResponseEntity<>("Invalid username or password", HttpStatus.UNAUTHORIZED);
+//    }
+
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody LoginRequestDto loginDTO) {
         Optional<User> userOptional = userService.findByUserName(loginDTO.getUsername());
@@ -41,10 +57,18 @@ public class AuthController {
             User user = userOptional.get();
 
             if (userService.checkPassword(loginDTO.getPassword(), user.getPassword())) {
-                return new ResponseEntity<>("Login successful! Welcome, " + user.getUsername(), HttpStatus.OK);
+                // Retornar um JSON válido
+                return ResponseEntity.ok(Map.of(
+                        "message", "Login successful!",
+                        "username", user.getUsername()
+                ));
             }
         }
 
-        return new ResponseEntity<>("Invalid username or password", HttpStatus.UNAUTHORIZED);
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(
+                "error", "Invalid username or password"
+        ));
     }
+
+
 }
