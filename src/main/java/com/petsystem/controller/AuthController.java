@@ -34,21 +34,6 @@ public class AuthController {
         }
     }
 
-//    @PostMapping("/login")
-//    public ResponseEntity<?> loginUser(@RequestBody LoginRequestDto loginDTO) {
-//        Optional<User> userOptional = userService.findByUserName(loginDTO.getUsername());
-//
-//        if (userOptional.isPresent()) {
-//            User user = userOptional.get();
-//
-//            if (userService.checkPassword(loginDTO.getPassword(), user.getPassword())) {
-//                return new ResponseEntity<>("Login successful! Welcome, " + user.getUsername(), HttpStatus.OK);
-//            }
-//        }
-//
-//        return new ResponseEntity<>("Invalid username or password", HttpStatus.UNAUTHORIZED);
-//    }
-
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody LoginRequestDto loginDTO) {
         Optional<User> userOptional = userService.findByUserName(loginDTO.getUsername());

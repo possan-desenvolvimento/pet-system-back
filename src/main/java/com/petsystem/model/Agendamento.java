@@ -12,11 +12,14 @@ public class Agendamento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private Long clienteId;
+//    @Column(nullable = false)
+//    private Long clienteId;
 
     @Column(nullable = false)
-    private Long petId;
+    private String telefoneCliente;
+
+    @Column(nullable = false)
+    private String nomePet;
 
     @Column(nullable = false)
     private String servico;
@@ -35,9 +38,9 @@ public class Agendamento {
 
     public Agendamento() {}
 
-    public Agendamento(Long clienteId, Long petId, String servico, LocalDate data, LocalTime hora, String observacoes, String status) {
-        this.clienteId = clienteId;
-        this.petId = petId;
+    public Agendamento(String telefoneCliente, String nomePet, String servico, LocalDate data, LocalTime hora, String observacoes, String status) {
+        this.telefoneCliente = telefoneCliente;
+        this.nomePet = nomePet;
         this.servico = servico;
         this.data = data;
         this.hora = hora;
@@ -46,27 +49,68 @@ public class Agendamento {
     }
 
     // Getters e Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() {
+        return id;
+    }
 
-    public Long getClienteId() { return clienteId; }
-    public void setClienteId(Long clienteId) { this.clienteId = clienteId; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public Long getPetId() { return petId; }
-    public void setPetId(Long petId) { this.petId = petId; }
+    public String getTelefoneCliente() {
+        return telefoneCliente;
+    }
 
-    public String getServico() { return servico; }
-    public void setServico(String servico) { this.servico = servico; }
+    public void setTelefoneCliente(String telefoneCliente) {
+        this.telefoneCliente = telefoneCliente;
 
-    public LocalDate getData() { return data; }
-    public void setData(LocalDate data) { this.data = data; }
+    }
 
-    public LocalTime getHora() { return hora; }
-    public void setHora(LocalTime hora) { this.hora = hora; }
+    public String getNomePet() {
+        return nomePet;
+    }
 
-    public String getObservacoes() { return observacoes; }
-    public void setObservacoes(String observacoes) { this.observacoes = observacoes; }
+    public void setNomePet(String nomePet) {
+        this.nomePet = nomePet;
+    }
 
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    public String getServico() {
+        return servico;
+    }
+
+    public void setServico(String servico) {
+        this.servico = servico;
+    }
+
+    public LocalDate getData() {
+        return data;
+    }
+
+    public void setData(LocalDate data) {
+        this.data = data;
+    }
+
+    public LocalTime getHora() {
+        return hora;
+    }
+
+    public void setHora(LocalTime hora) {
+        this.hora = hora;
+    }
+
+    public String getObservacoes() {
+        return observacoes;
+    }
+
+    public void setObservacoes(String observacoes) {
+        this.observacoes = observacoes;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }

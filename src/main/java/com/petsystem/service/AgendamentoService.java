@@ -30,8 +30,8 @@ public class AgendamentoService {
 
     public Agendamento atualizar(Long id, Agendamento agendamento) {
         return repository.findById(id).map(existing -> {
-            if (agendamento.getClienteId() != null) existing.setClienteId(agendamento.getClienteId());
-            if (agendamento.getPetId() != null) existing.setPetId(agendamento.getPetId());
+            if (agendamento.getTelefoneCliente() != null) existing.setTelefoneCliente(agendamento.getTelefoneCliente());
+            if (agendamento.getNomePet() != null) existing.setNomePet(agendamento.getNomePet());
             if (agendamento.getServico() != null) existing.setServico(agendamento.getServico());
             if (agendamento.getData() != null) existing.setData(agendamento.getData());
             if (agendamento.getHora() != null) existing.setHora(agendamento.getHora());
