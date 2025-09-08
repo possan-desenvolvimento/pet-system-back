@@ -7,11 +7,11 @@ import java.util.List;
 public class VendaDTO {
 
     private Long id;
-    private String cliente; // Corresponde a "cliente" no JSON
-    private LocalDate data; // Corresponde a "data" no JSON
-    private List<VendaItemDTO> itens; // Corresponde a "itens" no JSON
-    private BigDecimal total; // Corresponde a "total" no JSON
-    private String formaPagamento; // Corresponde a "formaPagamento" no JSON
+    private String cliente;
+    private LocalDate data;
+    private List<VendaItemDTO> itens;
+    private BigDecimal total;
+    private String formaPagamento;
 
     // Getters e Setters
     public Long getId() {
