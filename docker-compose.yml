@@ -28,7 +28,7 @@ services:
 
   frontend:
     build:
-      context: ../frontend
+      context: ../frontend/pet-system-front
     ports:
       - "9090:80"
     depends_on:
