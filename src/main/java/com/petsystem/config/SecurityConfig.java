@@ -27,11 +27,17 @@ public class SecurityConfig {
         config.setAllowCredentials(true);
 
         config.setAllowedOrigins(Arrays.asList(
-                "http://localhost:5500",
-                "http://127.0.0.1:5500",
-                "http://localhost:3000",
-                "http://localhost:9090", // frontend via nginx
-                "http://localhost"       // acesso direto local
+                "http://localhost:5500",           // Live Server
+                "http://127.0.0.1:5500",           // Live Server alternativo
+                "http://localhost:3000",           // React dev server
+                "http://localhost:80",             // Nginx frontend (Docker)
+                "http://localhost",                // Frontend rodando na porta 80
+                "http://localhost:8080",           // Frontend na porta 8080
+                "http://localhost:8081",           // ✅ ADICIONE ESTA LINHA!
+                "http://127.0.0.1:80",            // Nginx alternativo
+                "http://127.0.0.1",               // Localhost sem porta
+                "http://127.0.0.1:8080",          // Frontend alternativo na 8080
+                "http://127.0.0.1:8081"           // ✅ ADICIONE ESTA LINHA!
         ));
 
         config.setAllowedHeaders(Arrays.asList("*"));
@@ -41,11 +47,11 @@ public class SecurityConfig {
         source.registerCorsConfiguration("/**", config);
 
         http
-                .cors(cors -> cors.configurationSource(source)) // Aplica configuração CORS
-                .csrf(csrf -> csrf.disable())                   // Desabilita CSRF (útil para APIs)
+                .cors(cors -> cors.configurationSource(source))
+                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll() // Libera endpoints de autenticação
-                        .anyRequest().permitAll()                   // Libera o restante (ajuste conforme necessário)
+                        .requestMatchers("/", "/api/auth/**", "/favicon.ico").permitAll()
+                        .anyRequest().permitAll()
                 );
 
         return http.build();

@@ -44,8 +44,8 @@ public class AuthController {
             if (userService.checkPassword(loginDTO.getPassword(), user.getPassword())) {
                 // Retornar um JSON válido
                 return ResponseEntity.ok(Map.of(
-                        "message", "Login successful!",
-                        "username", user.getUsername()
+//                        "message", "Login successful!",
+//                        "username", user.getUsername()
                 ));
             }
         }
