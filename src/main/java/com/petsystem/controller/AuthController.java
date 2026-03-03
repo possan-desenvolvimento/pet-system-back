@@ -37,6 +37,9 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody LoginRequestDto loginDTO) {
         Optional<User> userOptional = userService.findByUserName(loginDTO.getUsername());
+        System.out.println("Usuário encontrado: " + user.getUsername());
+        System.out.println("Senha no banco: " + user.getPassword());
+        System.out.println("Senha recebida: " + loginDTO.getPassword());
 
         if (userOptional.isPresent()) {
             User user = userOptional.get();
